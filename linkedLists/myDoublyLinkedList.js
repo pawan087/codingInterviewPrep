@@ -15,14 +15,16 @@ class Node {
   constructor(value) {
     this.value = value;
     this.next = null;
+    this.prev = null;
   }
 }
 
-class LinkedList {
+class DoublyLinkedList {
   constructor(value) {
     this.head = {
       value: value,
       next: null,
+      prev: null
     };
 
     this.tail = this.head;
@@ -32,6 +34,7 @@ class LinkedList {
   append(value) {
     const newNode = new Node(value);
 
+    newNode.prev = this.tail;
     this.tail.next = newNode;
     this.tail = newNode;
     this.length++;
@@ -43,6 +46,7 @@ class LinkedList {
     const newNode = new Node(value);
 
     newNode.next = this.head;
+    this.head.prev = newNode;
     this.head = newNode;
     this.length++;
 
@@ -84,10 +88,12 @@ class LinkedList {
     const newNode = new Node(value);
 
     const leader = this.traverseToIndex(index - 1);
-    const holdingPointer = leader.next;
+    const follower = leader.next;
 
     leader.next = newNode;
-    newNode.next = holdingPointer;
+    newNode.prev = leader;
+    newNode.next = follower;
+    follower.prev = newNode;
     this.length++;
 
     return this.printList();
@@ -102,40 +108,15 @@ class LinkedList {
 
     return this.printList();
   }
-
-  reverse() {
-    if (!this.head.next) {
-      return this.head;
-    }
-
-    let first = this.head;
-    this.tail = this.head; // first
-    let second = first.next;
-
-    while (second) {
-      const temp = second.next;
-
-      second.next = first;
-
-      first = second;
-      second = temp;
-    }
-
-    this.head.next = null;
-    this.head = first;
-
-    return this.printList();
-  }
 }
 
-const myLinkedList = new LinkedList(10);
+const myDoublyLinkedList = new DoublyLinkedList(10);
 
-myLinkedList.append(5);
-myLinkedList.append(16);
-myLinkedList.prepend(1);
-myLinkedList.insert(2, 99);
-myLinkedList.insert(20, 88);
-myLinkedList.remove(2);
-myLinkedList.reverse();
+myDoublyLinkedList.append(5);
+myDoublyLinkedList.append(16);
+myDoublyLinkedList.prepend(1);
+myDoublyLinkedList.insert(2, 99);
+// myDoublyLinkedList.insert(20, 88);
+// myDoublyLinkedList.remove(2);
 
-console.log(myLinkedList);
+console.log(myDoublyLinkedList);
