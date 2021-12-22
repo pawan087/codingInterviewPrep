@@ -48,7 +48,7 @@ function quickSort(arr, left, right) {
   return arr;
 }
 
-let input = [5, 3, 7, 6, 2, 9];
+let input = [99, 44, 6, 2, 1, 5, 63, 87, 283, 4, 0];
 let sortedArray = quickSort(input, 0, input.length - 1);
 
 console.log(sortedArray); // [2,3,5,6,7,9]
