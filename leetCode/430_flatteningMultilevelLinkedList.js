@@ -50,7 +50,7 @@ const printListMulti = (head) => {
 // printListMulti(multiLinkedList);
 
 function flatten(head) {
-  debugger;
+  // debugger;
   let cur = head;
 
   while (cur) {
@@ -62,7 +62,7 @@ function flatten(head) {
       cur.child.prev = cur;
       cur.child = null;
       last.next = nex;
-      
+
       if (nex) {
         nex.prev = last;
       }
@@ -84,5 +84,5 @@ function flattenHelper(node) {
   return cur;
 }
 
-debugger;
+// debugger;
 console.log(flatten(multiLinkedList));
