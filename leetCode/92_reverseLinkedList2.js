@@ -7,122 +7,167 @@ class Node {
   }
 }
 
-class LinkedList {
-  constructor(value) {
-    this.head = {
-      value: value,
-      next: null,
-    };
+const one = new Node(1);
+const two = new Node(2);
+const three = new Node(3);
+const four = new Node(4);
+const five = new Node(5);
 
-    this.tail = this.head;
-    this.length = 1;
-  }
+one.next = two;
+two.next = three;
+three.next = four;
+four.next = five;
 
-  append(value) {
-    const newNode = new Node(value);
+function reverseLinkedList2(head, start, end) {
+  let node = head;
+  let starting;
 
-    this.tail.next = newNode;
-    this.tail = newNode;
-    this.length++;
-
-    return this;
-  }
-
-  prepend(value) {
-    const newNode = new Node(value);
-
-    newNode.next = this.head;
-    this.head = newNode;
-    this.length++;
-
-    return this;
-  }
-
-  printList() {
-    const array = [];
-    let currentNode = this.head;
-
-    while (currentNode !== null) {
-      array.push(currentNode.value);
-
-      currentNode = currentNode.next;
+  while (node) {
+    if (node.next) {
+      if (node.next.value === start) {
+        starting = node;
+        break;
+      }
     }
 
-    console.log(array);
-
-    return array;
+    node = node.next;
   }
 
-  traverseToIndex(index) {
-    let counter = 0;
-    let currentNode = this.head;
+  starting = node;
 
-    while (counter !== index) {
-      currentNode = currentNode.next;
-      counter++;
-    }
-
-    return currentNode;
+  if (node.next) {
+    node = node.next;
   }
 
-  insert(index, value) {
-    if (index >= this.length) {
-      return this.append(value);
+  let curr = node;
+  let nex = node.next;
+  let nexNex = nex.next;
+
+  while (curr) {
+    nex.next = curr;
+    curr = nex;
+    nex = nexNex;
+
+    if (curr.value === end) {
+      break;
     }
 
-    const newNode = new Node(value);
-
-    const leader = this.traverseToIndex(index - 1);
-    const holdingPointer = leader.next;
-
-    leader.next = newNode;
-    newNode.next = holdingPointer;
-    this.length++;
-
-    return this.printList();
+    if (nexNex.next) {
+      nexNex = nexNex.next;
+    } else {
+      break;
+    }
   }
 
-  remove(index) {
-    const leader = this.traverseToIndex(index - 1);
+  starting.next.next = nex;
+  starting.next = curr;
 
-    const unwantedNode = leader.next;
-    leader.next = unwantedNode.next;
-    this.length--;
+  node = head;
+  let arr = [];
 
-    return this.printList();
+  while (node) {
+    arr.push(node.value);
+    node = node.next;
   }
 
-  reverse() {
-    if (!this.head.next) {
-      return this.head;
-    }
+  return arr.join(" --> ");
+}
 
-    let first = this.head;
-    this.tail = this.head; // first
-    let second = first.next;
+// console.log(reverseLinkedList2(one, 2, 4));
 
-    while (second) {
-      const temp = second.next;
+class ListNode {
+  constructor(val, next = null) {
+    this.val = val;
+    this.next = next;
+  }
+}
+// Generate linked list
+const linkedList = [5, 4, 3, 2, 1].reduce(
+  (acc, val) => new ListNode(val, acc),
+  null
+);
 
-      second.next = first;
+const linkedList2 = [5].reduce((acc, val) => new ListNode(val, acc), null);
 
-      first = second;
-      second = temp;
-    }
+const printList = (head) => {
+  if (!head) {
+    return;
+  }
 
-    this.head.next = null;
-    this.head = first;
+  console.log(head.val);
+  printList(head.next);
+};
 
-    return this.printList();
+var reverseBetween = function (head, m, n) {
+  let currentPos = 1,
+    currentNode = head;
+  let start = head;
+
+  while (currentPos < m) {
+    start = currentNode;
+    currentNode = currentNode.next;
+    currentPos++;
+  }
+
+  let newList = null,
+    tail = currentNode;
+
+  while (currentPos >= m && currentPos <= n) {
+    const next = currentNode.next;
+    currentNode.next = newList;
+    newList = currentNode;
+    currentNode = next;
+    currentPos++;
+  }
+
+  start.next = newList;
+  tail.next = currentNode;
+
+  if (m > 1) {
+    return head;
+  } else {
+    return newList;
+  }
+};
+
+// printList(linkedList);
+// console.log("after reverse");
+// printList(reverseBetween(linkedList, 2, 4));
+
+/* ------------------------------------------------------ */
+
+function reverse(head, m, n) {
+  debugger;
+  let start = head;
+  let currentNode = head;
+  let currentPos = 1;
+
+  while (currentPos < m) {
+    start = currentNode;
+    currentNode = currentNode.next;
+    currentPos++;
+  }
+
+  let newList = null;
+  let tail = currentNode;
+
+  while (currentPos >= m && currentPos <= n) {
+    let next = currentNode.next;
+    currentNode.next = newList;
+    newList = currentNode;
+
+    currentNode = next;
+    currentPos++;
+  }
+
+  start.next = newList;
+  tail.next = currentNode;
+
+  if (m > 1) {
+    return head;
+  } else {
+    return newList;
   }
 }
 
-const myLinkedList = new LinkedList(1);
-
-myLinkedList.append(2);
-myLinkedList.append(3);
-myLinkedList.append(4);
-myLinkedList.append(5);
-myLinkedList.printList();
-
-// console.log(myLinkedList);
+console.log(reverse(linkedList2, 1, 1));
