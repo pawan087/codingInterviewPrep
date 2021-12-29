@@ -5,6 +5,8 @@
 // idx = arr.length - k --> 6 - 2 = 4
 // Answer is 'arr[idx]' or '5'
 
+const kthLargestEle = (arr, k) => arr.sort((a, b) => a - b)[arr.length - k];
+
 // function quickSort(arr, left, right) {
 //   if (left < right) {
 //     let partitionIdx = partition(arr, left, right);
@@ -90,12 +92,10 @@ function swap(arr, i, j) {
 
 function kthLargestElement(arr, k) {
   let idxToFind = arr.length - k;
-
   quickSelect(arr, 0, arr.length - 1, idxToFind);
 
   return arr[idxToFind];
 }
 
 let input = [5, 3, 1, 6, 4, 2];
-
 console.log(kthLargestElement(input, 2));
