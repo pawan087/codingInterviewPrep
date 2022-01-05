@@ -41,9 +41,11 @@ class MyArray {
 }
 
 const newArray = new MyArray();
+
 newArray.push("hi");
 newArray.push("you");
 newArray.push("!");
 newArray.delete(1);
 newArray.pop();
+
 console.log(newArray);
