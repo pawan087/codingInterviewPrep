@@ -16,6 +16,7 @@ Explanation: Intervals [1,4] and [4,5] are considered overlapping.
 
 function merge(arr) {
   arr.sort(([a, c], [b, d]) => a - b);
+  // arr.sort((a, b) => a[0] !== b[0] ? a[0] - b[0] : a[1] - b[1])
 
   let res = [arr[0]];
 
@@ -58,17 +59,3 @@ let input3 = [
 ];
 
 console.log(merge(input2));
-
-/*
-
-[
-  [6, 9],
-  [2, 3],
-  [9, 11],
-  [1, 5],
-  [14, 18],
-];
-
-// [[1,5], [6,11], [14,18]]
-
-*/
