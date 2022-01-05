@@ -1,31 +1,25 @@
-let inputArr = [1, 1, 2, 2, 3, 3];
-let inputArr2 = [1, 2, 3, 4, 5, 6];
-let inputK = 1;
-let inputK2 = 2;
+let input1 = [1, 5, 3, 4, 2]; // => 2
+let input2 = [8, 12, 16, 4, 0, 20]; // => 4
+
+let k1 = 3;
+let k2 = 4;
 
 function countPairs(arr, k) {
-  let res = [];
-  let set = new Set();
+  let count = 0;
 
   for (let i = 0; i < arr.length; i++) {
-    for (let j = 0; j < arr.length; j++) {
-      if (i == j) continue;
-      let a = arr[i];
-      let b = arr[j];
+    for (let j = i + 1; j < arr.length; j++) {
+      if (arr[i] + k === arr[j]) {
+        count++;
+      }
 
-      let strKey = `${a}${b}`;
-
-      if (set.has(strKey)) continue;
-
-      set.add(strKey);
-
-      if (a + k === b) {
-        // console.log(strKey);
-        res.push(strKey);
+      if (arr[j] + k === arr[i]) {
+        count++;
       }
     }
   }
-  return res.length;
+
+  return count;
 }
 
-console.log(countPairs(inputArr, inputK));
+console.log(countPairs(input2, k2));
