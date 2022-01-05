@@ -31,7 +31,7 @@ function myFunc(str) {
     }
   }
 
-  return res.join('\n') + '\n';
+  return res;
 }
 
 function freqCounter(str) {
@@ -48,6 +48,12 @@ function freqCounter(str) {
   return obj;
 }
 
-let input = ["b", "b", "r", "r", "g"];
+let input = ["b", "b", "r", "r", "g"].join('');
 
 console.log(myFunc(input));
+
+/*
+
+To optimize, one can instead count letter frequency in a 26 length array holding how many times a character appears using the index as representation for which alphabet character
+
+*/
