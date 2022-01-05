@@ -33,6 +33,25 @@ class TreeNode {
   }
 }
 
+function isValidBST(root, min = -Infinity, max = Infinity) {
+  if (root === null) return true;
+
+  if (root.left !== null) {
+    if (root.left.val >= root.val) return false;
+    if (root.left.val <= min) return false;
+  }
+
+  if (root.right !== null) {
+    if (root.right.val <= root.val) return false;
+    if (root.right.val >= max) return false;
+  }
+
+  return (
+    isValidBST(root.left, min, root.val) &&
+    isValidBST(root.right, root.val, max)
+  );
+}
+
 let node1 = new TreeNode(5);
 let node2 = new TreeNode(1);
 let node3 = new TreeNode(4);
@@ -44,4 +63,14 @@ node1.right = node3;
 node3.left = node4;
 node3.right = node5;
 
-console.log(node1);
+console.log(isValidBST(node1));
+
+/*
+
+NLR PreOrder *
+LNR InOrder
+LRN PostOrder
+
+Use PreOrder since we grab value of node first to compare then to it's left and right children
+
+*/
