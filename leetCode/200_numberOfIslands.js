@@ -92,13 +92,6 @@ const bfs = function (arr, row, col, seen) {
   return;
 };
 
-let island = [
-  [1, 1, 1, 1, 0],
-  [1, 1, 0, 1, 0],
-  [1, 1, 0, 0, 1],
-  [0, 0, 0, 1, 1],
-]; // => 2
-
 let grid = [
   ["1", "1", "1", "1", "0"],
   ["1", "1", "0", "1", "0"],
@@ -114,3 +107,6 @@ let grid2 = [
 ];
 
 console.log(numIslands(grid2));
+
+let toOptimize =
+  "Use linkedList instead of array for the queue and instead of using a seenHashMap flip the '1' to '0' to track island(s) and stay inbound when performing BFS";
