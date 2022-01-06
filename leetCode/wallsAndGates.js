@@ -52,7 +52,7 @@ function wallGates(grid) {
 
   grid.forEach((subArr) => console.log(subArr, "\n"));
 
-  return "Complete";
+  return grid;
 }
 
 function dfs(subArr, grid, i = 0, visited) {
