@@ -101,4 +101,34 @@ function returnIdxZero(obj) {
   return false;
 }
 
-console.log(canFinish(n, input));
+var canFinishOptimal = function (numCourses, prerequisites) {
+  let adjList = new Array(n).fill(0).map(() => new Array(0));
+  let inDegrees = new Array(n).fill(0);
+
+  for (let i = 0; i < prerequisites.length; i++) {
+    adjList[prerequisites[i][1]].push(prerequisites[i][0]);
+    inDegrees[prerequisites[i][0]]++;
+  }
+
+  let zeroInDegrees = [];
+
+  for (let i = 0; i < inDegrees.length; i++) {
+    if (inDegrees[i] === 0) zeroInDegrees.push(i);
+  }
+
+  while (zeroInDegrees) {
+    let cur = zeroInDegrees.pop();
+
+    if (adjList[cur]) {
+      for (let i = 0; i < adjList[cur].length; i++) {
+        inDegrees[adjList[cur][i]]--;
+
+        if (adjList[cur][i] === 0) zeroInDegrees.push(adjList[cur][i]);
+      }
+    }
+  }
+
+  return zeroInDegrees;
+};
+
+console.log(canFinishOptimal(n, input));
