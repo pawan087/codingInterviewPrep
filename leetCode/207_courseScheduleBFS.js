@@ -31,7 +31,6 @@ let input3 = [
 let n3 = 5;
 
 var canFinish = function (numCourses, prerequisites) {
-  debugger;
   let adjList = {};
 
   for (let i = 0; i < prerequisites.length; i++) {
@@ -51,11 +50,9 @@ var canFinish = function (numCourses, prerequisites) {
   }
 
   return true;
-  // return adjList
 };
 
 function bfs(node, adjList) {
-  debugger;
   let que = [node];
   let i = 0;
   let set = new Set();
@@ -95,5 +92,4 @@ let input4 = [
 
 let n4 = 4;
 
-debugger;
 console.log(canFinish(n4, input4));
