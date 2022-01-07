@@ -44,19 +44,13 @@ var dfs = function (idx, obj, informTime) {
 
   let sum = 0;
   sum += informTime[idx];
-  let i = 0;
-
-  let arr = new Array(obj[idx].length).fill(0).map(() => new Array(0));
+  let max = -Infinity;
 
   for (let employee of obj[idx]) {
     sum += dfs(employee, obj, informTime);
-    arr[i].push(sum);
-    i++;
+    max = Math.max(sum, max);
     sum = informTime[idx];
   }
-
-  let max = -Infinity;
-  arr.forEach((subArr) => (max = Math.max(subArr[0], max)));
 
   return max;
 };
