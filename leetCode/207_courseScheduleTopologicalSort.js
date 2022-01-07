@@ -116,19 +116,24 @@ var canFinishOptimal = function (numCourses, prerequisites) {
     if (inDegrees[i] === 0) zeroInDegrees.push(i);
   }
 
-  while (zeroInDegrees) {
-    let cur = zeroInDegrees.pop();
+  while (zeroInDegrees.length > 0) {
+    let cur = zeroInDegrees.shift();
 
     if (adjList[cur]) {
       for (let i = 0; i < adjList[cur].length; i++) {
         inDegrees[adjList[cur][i]]--;
 
-        if (adjList[cur][i] === 0) zeroInDegrees.push(adjList[cur][i]);
+        if (inDegrees[adjList[cur][i]] === 0)
+          zeroInDegrees.push(adjList[cur][i]);
       }
     }
   }
 
-  return zeroInDegrees;
+  for (let inDegree of inDegrees) {
+    if (inDegree !== 0) return false;
+  }
+
+  return true;
 };
 
-console.log(canFinishOptimal(n, input));
+console.log(canFinishOptimal(n3, input3));
