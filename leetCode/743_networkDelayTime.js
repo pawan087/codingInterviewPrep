@@ -2,42 +2,8 @@
 
 // see graph '743_networkDelayTime.jpg'
 
-let times1 = [
-  [2, 1, 1],
-  [2, 3, 1],
-  [3, 4, 1],
-];
-
-let n1 = 4;
-let k1 = 2;
-
-// => 2
-
-let times2 = [[1, 2, 1]];
-let n2 = 2;
-let k2 = 1;
-
-// => 1
-
-let times3 = [[1, 2, 1]];
-let n3 = 2;
-let k3 = 2;
-
-// => -1
-
-let times = [
-  [1, 2, 9],
-  [1, 4, 2],
-  [2, 5, 1],
-  [4, 2, 4],
-  [4, 5, 6],
-  [3, 2, 3],
-  [5, 3, 7],
-  [3, 1, 5],
-];
-
-let n = 5; // nodes = 1, 2, 3, 4, 5
-let k = 1;
+// Can optimize using minHeap to find smallest values instead of auxiliary function findSmallest
+// 1st add into heap the starting node, inside a while loop that ends when the heap is empty, pop out the smallest and add into heap it's neighbors after any updates
 
 var networkDelayTime = function (times, n, k) {
   let adjList = {};
@@ -57,19 +23,21 @@ var networkDelayTime = function (times, n, k) {
     }
   }
 
-  // return adjList;
   let obj = {};
   let set = new Set();
+  let count = n;
 
   for (let i = 1; i <= n; i++) {
     if (i !== k) obj[i] = Infinity;
     if (i === k) obj[i] = 0;
   }
 
-  while (set.size !== n) {
+  while (count !== 0) {
     let smallest = findSmallest(obj, set);
+
     obj = updateNeighbors(smallest, adjList, obj);
     set.add(smallest[0]);
+    count--;
   }
 
   let res = -Infinity;
@@ -89,6 +57,7 @@ function findSmallest(obj, set) {
 
   for (let arr of entries) {
     if (set.has(arr[0])) continue;
+
     if (arr[1] < smallest[1]) {
       smallest[0] = arr[0];
       smallest[1] = arr[1];
@@ -110,14 +79,49 @@ function updateNeighbors(smallest, adjList, obj) {
   return obj;
 }
 
+let times1 = [
+  [2, 1, 1],
+  [2, 3, 1],
+  [3, 4, 1],
+];
+let n1 = 4;
+let k1 = 2; // => 2
+
+let times2 = [[1, 2, 1]];
+let n2 = 2;
+let k2 = 1; // => 1
+
+let times3 = [[1, 2, 1]];
+let n3 = 2;
+let k3 = 2; // => -1
+
+let times = [
+  [1, 2, 9],
+  [1, 4, 2],
+  [2, 5, 1],
+  [4, 2, 4],
+  [4, 5, 6],
+  [3, 2, 3],
+  [5, 3, 7],
+  [3, 1, 5],
+];
+let n = 5; // nodes = 1, 2, 3, 4, 5
+let k = 1;
+
 let leetCodeTimes = [
   [2, 1, 1],
   [2, 3, 1],
   [3, 4, 1],
 ];
-
 let leetCodeN = 4;
 let leetCodeK = 2;
 
-console.log(networkDelayTime(leetCodeTimes, leetCodeN, leetCodeK));
-// console.log(networkDelayTime(times, n, k));
+let leetCodeTimes2 = [
+  [2, 1, 1],
+  [2, 3, 1],
+  [3, 4, 1],
+];
+let leetCodeN2 = 4;
+let leetCodeK2 = 1;
+
+console.log(networkDelayTime(leetCodeTimes2, leetCodeN2, leetCodeK2));
