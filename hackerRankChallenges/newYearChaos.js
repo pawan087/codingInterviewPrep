@@ -25,12 +25,10 @@
 // }
 
 function minimumBribes(q) {
-  //   debugger;
   let totalBribes = 0;
   let p1 = 1;
   let p2 = 2;
   let p3 = 3;
-  //   let arr = [p1, p2, p3];
 
   for (let num of q) {
     if (num === p1) {
@@ -39,7 +37,6 @@ function minimumBribes(q) {
       p2 = p3;
       p3++;
       // 234
-      //   arr = [p1, p2, p3];
       continue;
     }
 
@@ -49,7 +46,6 @@ function minimumBribes(q) {
       p2 = p3;
       p3++;
       // 134
-      //   arr = [p1, p2, p3];
       continue;
     }
 
@@ -58,7 +54,6 @@ function minimumBribes(q) {
       totalBribes += 2;
       p3++;
       // 124
-      //   arr = [p1, p2, p3];
       continue;
     }
 
@@ -73,11 +68,39 @@ function minimumBribes(q) {
   return;
 }
 
+function minBribesComplicated(q) {
+  let res = 0;
+
+  for (let i = q.length - 1; i >= 0; i--) {
+    let cur = q[i];
+
+    let x = [1, 2, 5, 3, 7, 8, 6, 4];
+
+    if (cur - (i + 1) > 2) {
+      console.log("Too chaotic");
+
+      return;
+    }
+
+    for (let j = Math.max(0, cur - 2); j < i; j++) {
+      let cur2 = q[j];
+
+      if (cur2 > cur) {
+        res++;
+      }
+    }
+  }
+
+  console.log(res);
+
+  return;
+}
+
 let queue1 = [1, 2, 3, 5, 4, 6, 7, 8]; // => 1
 let queue2 = [4, 1, 2, 3]; // => 'Too chaotic'
 
 let hackerRankInput1 = [2, 1, 5, 3, 4]; // => 3
 let hackerRankInput2 = [2, 5, 1, 3, 4]; // => 'Too chaotic'
 let hackerRankInput3 = [1, 2, 5, 3, 7, 8, 6, 4]; // => 7
-// debugger;
-console.log(minimumBribes(hackerRankInput3));
+
+console.log(minBribes(hackerRankInput3));
