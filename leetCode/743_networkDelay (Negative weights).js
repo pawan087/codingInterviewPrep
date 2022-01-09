@@ -46,7 +46,7 @@ var networkDelayTime = function (times, n, k) {
     count--;
   }
 
-  //   let hasCycle = containsCycle(times, obj);
+  let hasCycle = containsCycle(times, obj);
 
   let res = -Infinity;
 
@@ -56,7 +56,7 @@ var networkDelayTime = function (times, n, k) {
     res = Math.max(res, val);
   }
 
-  return res === Infinity ? -1 : res;
+  return res === Infinity || res === -Infinity ? -1 : res;
 };
 
 function containsCycle(times, obj) {
