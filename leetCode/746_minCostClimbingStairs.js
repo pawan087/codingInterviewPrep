@@ -49,4 +49,24 @@ let input1 = [10, 15, 20];
 let input2 = [1, 100, 1, 1, 1, 100, 1, 1, 100, 1];
 let input = [10, 15, 30];
 
-console.log(minCostClimbingStairs(input));
+// console.log(minCostClimbingStairs(input));
+
+function minCostClimbingStairsRecursive(cost) {
+  let n = cost.length;
+  let dP = [];
+
+  return Math.min(minCost(n - 1, cost, dP), minCost(n - 2, cost, dP));
+}
+
+function minCost(i, cost, dP) {
+  if (i < 0) return 0;
+  if (i === 0 || i === 1) return cost[i];
+  if (dP[i] !== undefined) return dP[i];
+
+  dP[i] =
+    cost[i] + Math.min(minCost(i - 1, cost, dP), minCost(i - 2, cost, dP));
+
+  return dP[i];
+}
+
+console.log(minCostClimbingStairsRecursive(input));
