@@ -34,6 +34,7 @@ var minCostClimbingStairs = function (cost) {
 
   for (let i = 0; i <= cost.length; i++) {
     let curNum = cost[i] === undefined ? 0 : cost[i];
+    
     let curCost = Math.min(
       arr[arr.length - 2] + curNum,
       arr[arr.length - 1] + curNum
