@@ -1,8 +1,9 @@
 // https://www.hackerrank.com/challenges/minimum-swaps-2/problem?isFullScreen=true&h_l=interview&playlist_slugs%5B%5D=interview-preparation-kit&playlist_slugs%5B%5D=arrays
 
-let input1 = [7, 1, 3, 2, 4, 5, 6]; // => 5 swaps
-let input2 = [4, 3, 2, 1]; // => 3 swaps
-let input3 = [2, 3, 4, 1, 5]; // => 3 swaps
+let input1 = [7, 1, 3, 2, 4, 5, 6];
+let input2 = [4, 3, 2, 1];
+let input3 = [2, 3, 4, 1, 5];
+let input4 = [0, 2, 3, 4, 1, 6, 5];
 
 function minimumSwaps(arr) {
   let swaps = 0;
@@ -29,6 +30,33 @@ function minimumSwaps(arr) {
 
 function minimumSwaps2(arr) {
   let swaps = 0;
+  let obj = {};
+
+  for (let i = 1; i <= arr.length; i++) {
+    obj[i] = false;
+  }
+
+  for (let i = 0; i < arr.length; i++) {
+    let curNum = arr[i];
+    let shouldBe = i + 1;
+
+    if (obj[curNum] === true) continue;
+
+    if (curNum === shouldBe) {
+      obj[curNum] = true;
+      continue;
+    }
+
+    obj[curNum] = true;
+    let nexNum = arr[curNum - 1];
+
+    while (obj[nexNum] !== true) {
+      obj[nexNum] = true;
+
+      nexNum = arr[nexNum - 1];
+      swaps++;
+    }
+  }
 
   return swaps;
 }
