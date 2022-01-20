@@ -7,7 +7,7 @@ class TrieNode {
 
 class Trie {
   constructor() {
-    this.root = new Trie();
+    this.root = new TrieNode();
   }
 
   insert(word, node = this.root) {
@@ -31,23 +31,31 @@ class Trie {
     } else if (node.keys[word[0]] === undefined) {
       return false;
     } else {
-      this.search(word.substring(1), node.keys[word[0]]);
+      return this.search(word.substring(1), node.keys[word[0]]);
+    }
+  }
+
+  startsWith(prefix, node = this.root) {
+    if (prefix.length === 0) {
+      return true;
+    } else if (node.keys[prefix[0]] === undefined) {
+      return false;
+    } else {
+      return this.startsWith(prefix.substring(1), node.keys[prefix[0]]);
     }
   }
 }
 
-/*
+let t = new Trie();
 
-insert("apple");
-search("dog"); // false
+t.insert("apple");
+console.log(t.search("dog")); // false
 
-insert("dog");
-search("dog"); // true
+t.insert("dog");
+console.log(t.search("dog")); // true
 
-startsWith("app"); // true
+console.log(t.startsWith("app")); // true
 
-search("app"); // false
-insert("app");
-search("app"); // true
-
-*/
+console.log(t.search("app")); // false
+t.insert("app");
+console.log(t.search("app")); // true
