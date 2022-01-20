@@ -1,5 +1,8 @@
+// Simple Max Difference
+
 let input1 = [7, 1, 2, 5]; // => 4, 5 - 1 = 4
 let input2 = [7, 5, 3, 1]; // => -1, There's never a difference greater than zero
+let input3 = [7, 9, 5, 6, 3, 2];
 
 function maxDifference(px) {
   let maxDif = -Infinity;
