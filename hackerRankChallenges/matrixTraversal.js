@@ -9,6 +9,13 @@ let mat = [
   [60, 50, 60, 50],
 ];
 
+let mat2 = [
+  [41, 22, 56, 84],
+  [22, 51, 01, 20],
+  [05, 07, 18, 19],
+  [11, 22, 03, 15],
+]; // => 67
+
 let directions = [
   [1, -1], // Down and left
   [1, 0], // Down and same column
@@ -19,6 +26,7 @@ function maxEnergy(mat) {
   let energies = [];
 
   for (let j = 0; j < mat[0].length; j++) {
+    let tmp = j;
     let i = 0;
     let energy = 100;
 
@@ -29,13 +37,26 @@ function maxEnergy(mat) {
 
       if (!choices) continue;
 
-      let min = Math.min(...choices);
-      energy = energy - min;
+      let min = Infinity;
+      let idx = -1;
 
+      for (let k = 0; k < choices.length; k++) {
+        let num = choices[k][0];
+        let curIdx = choices[k][1];
+
+        if (num < min) {
+          min = num;
+          idx = curIdx;
+        }
+      }
+
+      j = idx;
+      energy = energy - min;
       i++;
     }
 
     energies.push(energy);
+    j = tmp;
   }
 
   return Math.max(...energies);
@@ -53,10 +74,10 @@ function grabChoices(mat, i, j) {
 
     if (i + 1 === mat.length) return;
 
-    arr.push(mat[i + 1][curCol + j]);
+    arr.push([mat[i + 1][curCol + j], curCol + j]);
   }
 
   return arr;
 }
 
-console.log(maxEnergy(mat));
+console.log(maxEnergy(mat2));
