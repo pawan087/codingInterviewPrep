@@ -25,45 +25,46 @@ function countsSlow(teamA, teamB) {
     res.push(count);
   }
 
-  // teamA.sort((a, b) => a - b);
-
-  // console.log(teamA);
-
   return res;
 }
 
 function counts(teamA, teamB) {
+  // debugger;
   teamA.sort((a, b) => a - b);
 
   let res = [];
 
-  console.log("teamA", teamA);
-
   for (let i = 0; i < teamB.length; i++) {
+    // debugger;
     let numB = teamB[i];
 
     let l = 0;
     let r = teamA.length;
-    let count;
 
     while (l < r) {
+      // debugger;
       let mid = Math.floor((l + r) / 2);
       let numA = teamA[mid];
 
       if (numA > numB) {
+        // debugger;
         r = mid;
       } else {
+        // debugger;
         l = mid + 1;
       }
     }
 
     if (l === r) {
+      // debugger;
       res.push(l);
     } else {
+      // debugger;
       res.push(mid);
     }
   }
 
+  // debugger;
   return res;
 }
 
@@ -76,4 +77,5 @@ let teamA2 = [2, 10, 5, 4, 8];
 let teamB2 = [3, 1, 7, 8];
 // => [1,0,3,4]
 
+// debugger;
 console.log(counts(teamA2, teamB2));
