@@ -7,31 +7,6 @@ function Node(val, children) {
   this.children = children === undefined ? [] : children;
 }
 
-// function frequency(root, str, dP = {}) {
-//   if (dP[str[root.val - 1]] !== undefined) {
-//     // dP[str[root.val - 1]]++;
-//     return;
-//   } else {
-//     dP[str[root.val - 1]] = 1;
-//   }
-
-//   for (let child of root.children) {
-//     let char = str[child.val - 1];
-
-//     if (dP[char] === undefined) {
-//       dP[char] = 1;
-//     } else {
-//       dP[char]++;
-//     }
-
-//     if (child.children.length > 0) {
-//       countOfNodes(child, str, dP);
-//     }
-//   }
-
-//   return dP;
-// }
-
 function frequency(root, str, obj = {}) {
   let char = str[root.val - 1];
 
