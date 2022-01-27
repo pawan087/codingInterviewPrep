@@ -1,6 +1,6 @@
 // Football Scores
 
-function counts(teamA, teamB) {
+function countsSlow(teamA, teamB) {
   let obj = {};
 
   for (let num of teamA) {
@@ -32,21 +32,48 @@ function counts(teamA, teamB) {
   return res;
 }
 
-/*
+function counts(teamA, teamB) {
+  teamA.sort((a, b) => a - b);
 
-Faster approach would be to first sort teamA
-Iterate through teamB (no need to sort)
-Run a binary search while (!(i > j)), i === j is fine it's when i is past j we want to stop looping
-whilst looping run binary search
-when moving j to the left, cut off from length of teamA
-when moving i === j check if numA less than or equal to numB
-if so return the total count which was being truncated by cuts when moving j right
-if the number isn't equal when i === j then that means that number should also be cut so decrease count and add to res
+  let res = [];
 
-*/
+  console.log("teamA", teamA);
 
-let teamA = [1, 4, 2, 4];
-let teamB = [3, 5];
+  for (let i = 0; i < teamB.length; i++) {
+    let numB = teamB[i];
+
+    let l = 0;
+    let r = teamA.length;
+    let count;
+
+    while (l < r) {
+      let mid = Math.floor((l + r) / 2);
+      let numA = teamA[mid];
+
+      if (numA > numB) {
+        r = mid;
+      } else {
+        l = mid + 1;
+      }
+    }
+
+    if (l === r) {
+      res.push(l);
+    } else {
+      res.push(mid);
+    }
+  }
+
+  return res;
+}
+
+let teamA1 = [1, 4, 2, 4];
+let teamB1 = [3, 5];
 // => [2, 4]
 
-console.log(counts(teamA, teamB));
+let teamA2 = [2, 10, 5, 4, 8];
+// [ 2, 4, 5, 8, 10 ]
+let teamB2 = [3, 1, 7, 8];
+// => [1,0,3,4]
+
+console.log(counts(teamA2, teamB2));
