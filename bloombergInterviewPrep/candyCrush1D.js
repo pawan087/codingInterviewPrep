@@ -27,7 +27,7 @@ Explaination
 */
 
 let input3 = "aabbccddeeedcba";
-let output = "";
+let output3 = "";
 
 /*
 
@@ -41,7 +41,7 @@ Explanation:
 */
 
 let input4 = "aaabbbacd";
-let output = "acd";
+let output4 = "acd";
 
 /*
 
@@ -52,9 +52,44 @@ Explanation:
 */
 
 function candyCrush(str) {
-  let res = "";
+  let toDo = true;
 
-  return "Testing";
+  while (toDo === true) {
+    let strArr = str.split("");
+    toDo = false;
+
+    for (let i = 0; i < strArr.length; i++) {
+      let cur = strArr[i];
+      let nex = strArr[i + 1];
+      let nexNex = strArr[i + 2];
+
+      if (nex === undefined) {
+        break;
+      }
+
+      if (cur === nex && nex === nexNex) {
+        toDo = true;
+
+        strArr[i] = "-" + strArr[i];
+        strArr[i + 1] = "-" + strArr[i + 1];
+        strArr[i + 2] = "-" + strArr[i + 2];
+      }
+    }
+
+    let trimmedArr = [];
+
+    for (let i = 0; i < strArr.length; i++) {
+      if (strArr[i][0] === "-") {
+        continue;
+      } else {
+        trimmedArr.push(strArr[i]);
+      }
+    }
+
+    str = trimmedArr.join("");
+  }
+
+  return str;
 }
 
-console.log(candyCrush(input1));
+console.log(candyCrush(input4));
