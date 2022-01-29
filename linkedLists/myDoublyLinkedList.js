@@ -110,7 +110,7 @@ class DoublyLinkedList {
   }
 }
 
-const myDoublyLinkedList = new DoublyLinkedList(10);
+const myDoublyLinkedList = new DoublyLinkedList();
 
 myDoublyLinkedList.append(5);
 myDoublyLinkedList.append(16);

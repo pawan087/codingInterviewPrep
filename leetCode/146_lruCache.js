@@ -3,34 +3,61 @@
 // https://leetcode.com/problems/lru-cache/
 
 class LRUCache {
-  constructor() {
-    //
+  constructor(capacity) {
+    this.capacity = capacity;
+    this.list = [];
   }
 
-  put() {
-    //
+  put(key, value) {
+    let obj = {};
+    obj[key] = value;
+    let bool = false;
+
+    for (let i = 0; i < this.list.length; i++) {
+      let curObj = this.list[i];
+
+      for (let curKey in curObj) {
+        if (curKey === String(key)) {
+          bool = true;
+          this.list[i][key] = value;
+
+          let cur = this.list.slice(i, i + 1);
+          let withoutCur = [
+            ...this.list.slice(0, i),
+            ...this.list.slice(i + 1),
+          ];
+
+          this.list = [...cur, ...withoutCur];
+        }
+      }
+    }
+
+    if (!bool) this.list.unshift(obj);
+
+    if (this.list.length > this.capacity) {
+      this.list.pop();
+    }
   }
 
-  get() {
-    //
+  get(key) {
+    if (this.list.length === 0) {
+      return -1;
+    }
+
+    for (let i = 0; i < this.list.length; i++) {
+      let obj = this.list[i];
+      let val = obj[key];
+
+      if (val !== undefined) {
+        let cur = this.list.slice(i, i + 1);
+        let withoutCur = [...this.list.slice(0, i), ...this.list.slice(i + 1)];
+
+        this.list = [...cur, ...withoutCur];
+
+        return val;
+      }
+    }
+
+    return -1;
   }
 }
-
-let lRUCache = new LRUCache(2);
-
-lRUCache.put(1, 1); // cache is {1=1}
-lRUCache.put(2, 2); // cache is {1=1, 2=2}
-
-lRUCache.get(1); // return 1
-
-lRUCache.put(3, 3); // LRU key was 2, evicts key 2, cache is {1=1, 3=3}
-
-lRUCache.get(2); // returns -1 (not found)
-
-lRUCache.put(4, 4); // LRU key was 1, evicts key 1, cache is {4=4, 3=3}
-
-lRUCache.get(1); // return -1 (not found)
-lRUCache.get(3); // return 3
-lRUCache.get(4); // return 4
-
-console.log(lRUCache);
