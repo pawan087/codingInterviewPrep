@@ -2,7 +2,7 @@
 
 // https://leetcode.com/problems/lru-cache/
 
-class LRUCache {
+class LRUCacheSlow {
   constructor(capacity) {
     this.capacity = capacity;
     this.list = [];
@@ -59,5 +59,36 @@ class LRUCache {
     }
 
     return -1;
+  }
+}
+
+class LRUCacheUsingMap {
+  constructor(capacity) {
+    this.cache = new Map();
+    this.capacity = capacity;
+  }
+
+  get(key) {
+    if (this.cache.has(key) === false) {
+      return -1;
+    }
+
+    const val = this.cache.get(key);
+    this.cache.delete(key);
+    this.cache.set(key, val);
+
+    return this.cache.get(key);
+  }
+
+  put(key, value) {
+    if (this.cache.has(key) === true) {
+      this.cache.delete(key);
+    }
+
+    this.cache.set(key, value);
+
+    if (this.cache.size > this.capacity) {
+      this.cache.delete(this.cache.keys().next().value); // keys().next().value returns first item's key
+    }
   }
 }
