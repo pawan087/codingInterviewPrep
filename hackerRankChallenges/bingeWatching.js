@@ -1,29 +1,41 @@
-// Bing Watching
-
 function findMinimumDays(durations) {
   let arr = [];
   let sum = 0;
+  let count = 0;
 
-  for (let i = 0; i < durations.length; i++) {
-    let curTime = durations[i];
-    let tmp = sum + curTime;
+  while (checkNegatives(durations) === false) {
+    for (let i = 0; i < durations.length; i++) {
+      let curNum = durations[i];
 
-    if (tmp <= 3) {
-      sum += curTime;
+      if (curNum < 0) {
+        continue;
+      }
 
-      if (i === durations.length - 1 && sum > 0) {
-        arr.push(i);
+      if (sum + curNum <= 3) {
+        sum += curNum;
+        durations[i] *= -1;
+        count++;
+      } else {
+        continue;
       }
     }
 
-    if (tmp > 3) {
-      arr.push(i);
-      sum = 0;
-      i--;
-    }
+    arr.push(count);
+    sum = 0;
+    count = 0;
   }
 
   return arr.length;
+}
+
+function checkNegatives(arr) {
+  for (let num of arr) {
+    if (num > 0) {
+      return false;
+    }
+  }
+
+  return true;
 }
 
 let n = 5;

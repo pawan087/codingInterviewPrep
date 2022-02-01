@@ -1,7 +1,8 @@
 // Racing Car
 
 function minimumMovement(obstacleLanes) {
-  return;
+
+  return
 }
 
 let n = 3;
