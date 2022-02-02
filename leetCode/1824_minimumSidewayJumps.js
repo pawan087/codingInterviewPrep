@@ -60,10 +60,6 @@ var minSideJumps = function (obstacles) {
     res = Math.min(res, cur);
   }
 
-  for (let x of course) {
-      console.log(x);
-  }
-
   return res;
 };
 
