@@ -1,7 +1,31 @@
 // Queue at ATM
 
 function getFinalOrder(k, amount) {
-  // Write your code here
+  let obj = {};
+
+  for (let i = 1; i <= amount.length; i++) {
+    obj[i] = amount[i - 1];
+  }
+
+  let res = [];
+
+  while (Object.keys(obj).length > 0) {
+    for (let key in obj) {
+      let val = obj[key];
+
+      val = val - k;
+
+      obj[key] = val;
+
+      if (val <= 0) {
+        res.push(Number(key));
+
+        delete obj[key];
+      }
+    }
+  }
+
+  return res;
 }
 
 let k = 2;
