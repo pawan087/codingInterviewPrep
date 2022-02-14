@@ -53,7 +53,7 @@ let output2 = [[1]];
 //   return res;
 // };
 
-let combine = function (n, k) {
+let combineRecursive = function (n, k) {
   // Instantiate results array
   let res = [];
 
@@ -86,4 +86,32 @@ let combine = function (n, k) {
   return res;
 };
 
-console.log(combine(4, 3));
+function combine(n, k) {
+  let frame = new Array(k).fill(0);
+  let ans = [];
+  let i = 0;
+
+  while (i >= 0) {
+    frame[i] += 1;
+
+    if (frame[i] === n + 1) {
+      i -= 1;
+
+      continue;
+    }
+
+    i += 1;
+
+    if (i === k) {
+      i -= 1;
+      ans.push(frame.slice());
+      continue;
+    }
+
+    frame[i] = frame[i - 1];
+  }
+
+  return ans;
+}
+
+console.log(combine(n1, 3));
