@@ -109,23 +109,39 @@
 // };
 
 let permute = (nums) => {
+  // Instantiate results array to hold permutation sub-arrays
   let res = [];
 
+  // Helper function used to to fill the results array with the permutation sub-arrays
   let helper = (cur, rest) => {
+    // Cur, the first parameter is the current permutation sub-array being built (in process)
+    // Rest, the second parameter is the the remaining numbers of the original array not currently being used in Cur (current permutation being built)
     if (rest.length === 0) {
+      // If at a point we have used all numbers in the current permutation being built
+      // and there are no more remaining numbers to use in the second parameter
+      // Then we can go ahead and consider this permutation
       res.push(cur);
 
       return;
     }
 
+    // If we have variables remaining in the second parameter rest then we iterate through each of the numbers
+    // Each number will have it's own decision state tree beneath it
     for (let i = 0; i < rest.length; i++) {
+      // Take the current number of the iteration and place that number into the current permutation being built
       let argOne = [...cur, rest[i]]; // Cur
+      // Remove the number that is currently being used in the permutation from the remaining numbers to make sure we do not reuse or have duplicates
+      // Can consider using a set instead to further optimize
       let argTwo = [...rest.slice(0, i), ...rest.slice(i + 1)]; // Rest
 
+      // Call the helper function on the remaining numbers since we have selected one from the list
+      // The further we go down the decision state tree recursively we will eventually be left with no more remaining numbers since we will have used them all
+      // At that point we know to consider that sub-array as a permutation
       helper(argOne, argTwo);
     }
   };
 
+  // Initiate the filling of the results array by starting first with an empty array and all the numbers
   helper([], nums);
 
   return res;

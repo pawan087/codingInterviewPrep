@@ -65,4 +65,4 @@ let input3 = [-3, 0, -2]; // 0
 // [00, -2, -5] Summation
 // Longest seqeuence of positive integers is 0
 
-console.log(maxPosPrefixes(input2));
+console.log(maxPosPrefixes(input));
