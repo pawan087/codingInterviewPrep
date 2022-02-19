@@ -8,49 +8,77 @@ function Node(val, next, random) {
   this.random = random === undefined ? null : random;
 }
 
+// var copyRandomList = function (head) {
+//   let seen = {};
+//   let cur = head;
+//   let newNodesArr = [];
+//   let i = 0;
+
+//   while (cur !== null) {
+//     seen[cur.val] = cur;
+
+//     let newNodeToPush = new Node(cur.val);
+//     newNodesArr.push(newNodeToPush);
+//     let key = `new${cur.val}`;
+//     seen[key] = i;
+
+//     i++;
+//     cur = cur.next;
+//   }
+
+//   cur = head;
+
+//   for (let newNode of newNodesArr) {
+//     if (cur.next) {
+//       let key = `new${cur.next.val}`;
+//       newNode.next = newNodesArr[seen[key]];
+//     }
+
+//     if (cur.random) {
+//       let key = `new${cur.random.val}`;
+//       newNode.random = newNodesArr[seen[key]];
+//     }
+
+//     cur = cur.next;
+//   }
+
+//   cur = head;
+
+//   //   while (cur !== null) {
+//   //     console.log(cur);
+
+//   //     cur = cur.next;
+//   //   }
+
+//   return newNodesArr[0];
+// };
+
 var copyRandomList = function (head) {
-  let seen = {};
+  let map = new Map([[null, null]]);
+
   let cur = head;
-  let newNodesArr = [];
-  let i = 0;
 
   while (cur !== null) {
-    seen[cur.val] = cur;
-
-    let newNodeToPush = new Node(cur.val);
-    newNodesArr.push(newNodeToPush);
-    let key = `new${cur.val}`;
-    seen[key] = i;
-
-    i++;
-    cur = cur.next;
-  }
-
-  cur = head;
-
-  for (let newNode of newNodesArr) {
-    if (cur.next) {
-      let key = `new${cur.next.val}`;
-      newNode.next = newNodesArr[seen[key]];
-    }
-
-    if (cur.random) {
-      let key = `new${cur.random.val}`;
-      newNode.random = newNodesArr[seen[key]];
-    }
+    let curCopy = new Node(cur.val);
+    map.set(cur, curCopy);
 
     cur = cur.next;
   }
 
   cur = head;
 
-  //   while (cur !== null) {
-  //     console.log(cur);
+  while (cur !== null) {
+    let curCopy = map.get(cur);
+    let copyNext = map.get(cur.next);
+    let copyRandom = map.get(cur.random);
 
-  //     cur = cur.next;
-  //   }
+    curCopy.next = copyNext;
+    curCopy.random = copyRandom;
 
-  return newNodesArr[0];
+    cur = cur.next;
+  }
+
+  return map.get(head);
 };
 
 // Example 1:
