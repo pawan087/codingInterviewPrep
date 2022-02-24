@@ -59,10 +59,6 @@ function minMoves(n, startRow, startCol, endRow, endCol) {
 
       if (board[nexRow][nexCol] !== 0) continue;
 
-      if (nexRow === endRow && nexCol === endCol) {
-        // return curCost + 1;
-      }
-
       board[nexRow][nexCol] = curCost + 1;
 
       que.push([nexRow, nexCol]);
@@ -72,6 +68,7 @@ function minMoves(n, startRow, startCol, endRow, endCol) {
   for (let i = 0; i < board.length; i++) {
     for (let j = 0; j < board[i].length; j++) {
       let num = board[i][j];
+
       if (num === 0) {
         board[i][j] = ".";
       } else {
@@ -86,7 +83,10 @@ function minMoves(n, startRow, startCol, endRow, endCol) {
     console.log(JSON.stringify(row));
   }
 
-  return board;
+  console.log("\n");
+  console.log("Amount of moves to get to end position from start position");
+
+  return board[endRow][endCol];
 }
 
 console.log(minMoves(n, startRow, startCol, endRow, endCol));
