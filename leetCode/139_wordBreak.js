@@ -90,4 +90,4 @@ let input3 = "catsandog";
 let wordDict3 = ["cats", "dog", "sand", "and", "cat"];
 let output3 = false;
 
-console.log(wordBreak(input, wordDict));
+console.log(wordBreak(input3, wordDict3));
