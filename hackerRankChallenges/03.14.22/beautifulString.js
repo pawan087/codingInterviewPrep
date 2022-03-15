@@ -3,10 +3,11 @@
 function getMinimumOperationCount(s) {
   let alphabet = "abcdefghijklmnopqrstuvwxyz".split("");
   let count = 0;
+  let str = s.split("");
 
-  for (let i = 0; i < s.length; i += 2) {
-    let cur = s[i];
-    let nex = s[i + 1];
+  for (let i = 0; i < str.length; i += 2) {
+    let cur = str[i];
+    let nex = str[i + 1];
 
     if (nex === undefined) {
       continue;
@@ -27,4 +28,4 @@ function getMinimumOperationCount(s) {
 
 let input = "abdde"; // => 2
 
-console.log(getMinimumOperationCount(input));
+console.log(getMinimumOperationCount(input2));
