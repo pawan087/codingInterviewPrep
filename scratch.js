@@ -54,4 +54,71 @@ function cakes(recipe, available) {
   return howMany[theKey];
 }
 
-console.log(cakes(recipe, available));
+// console.log(cakes(recipe, available));
+
+//
+
+function dotCalculator(equation) {
+  let obj = {};
+  for (let char of equation) {
+    if (char === " ") {
+      continue;
+    }
+    obj[char] = true;
+  }
+  let splitter;
+  for (let key in obj) {
+    if (key != ".") {
+      splitter = key;
+      break;
+    }
+  }
+
+  let split = equation.split(` ${splitter} `);
+
+  let count;
+  let count1 = split[0].length;
+  let count2 = split[1].length;
+
+  if (count1 === 0 || count2 === 0) {
+    return "";
+  }
+
+  if (splitter === "+") {
+    count = count1 + count2;
+  }
+
+  if (splitter === "-") {
+    count = count1 - count2;
+  }
+
+  if (splitter === "*") {
+    count = count1 * count2;
+  }
+
+  if (splitter === "/") {
+    count = count / count2;
+  }
+
+  let res = "";
+
+  for (let i = 1; i <= count; i++) {
+    res += ".";
+  }
+
+//   console.log(split[0].length + split[1].length);
+
+//   console.log(res.length);
+
+  return res;
+}
+
+let equation = "..... + ...............";
+let result = "....................";
+
+// console.log(dotCalculator(equation) === "....................");
+// console.log("....................".length);
+
+//
+
+console.log((1 * 1 + 2 * 2 + 3 * 3) / (1 + 2 + 3 + 4));
